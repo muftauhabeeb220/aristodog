@@ -60,7 +60,7 @@ class FileInfo {
 
         $data['nft'] = [
             'path' => 'assets/admin/images/nft',
-            // 'size' => '800x800',
+            'size' => '800x800',
         ];
         $data['game'] = [
             'path' => 'assets/images/game',
