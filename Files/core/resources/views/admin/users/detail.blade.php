@@ -164,14 +164,38 @@
 
 
 
-            @if ($user->nft != NULL)
+
+
+
+            @if ($user->txHash != NULL)
             <div class="flex-fill">
-                <a class="btn btn--dark btn--shadow w-100 btn-lg" href="{{ $user->nft != NULL ?  getImage(getFilePath('nft')."/". $user->nft):""  }}" target="_blank">
-                    <i class="las la-user-check"></i>@lang('NFT')
+                <a class="btn btn--dark btn--shadow w-100 btn-lg welcome" >
+                    <i class="las la-user-check"></i>@lang('Welcome Bonus')
                 </a>
 
             </div>
+
+
+
+
             @endif
+
+
+
+            <div class="modal fade" id="welcome" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">@lang('Welcome Bonus Claimed')</h5>
+                            <span class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></span>
+                        </div>
+                        <div class="modal-body">
+                            <p>TX Hash : {{ $user->txHash }} </p>
+                            <h3> {{ $user->amount }} ETH</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -376,6 +400,7 @@
 @endsection
 
 @push('script')
+
 <script>
     (function($) {
             "use strict"
@@ -400,6 +425,17 @@
             $('input[name=mobile]').val(mobileNumber);
             mobileElement.text(`+${dialCode}`);
 
+
+
+
         })(jQuery);
+
+
+
+        $(document).ready(function() {
+            $(".welcome").click(function() {
+                $("#welcome").modal('show')
+            })
+        })
 </script>
 @endpush

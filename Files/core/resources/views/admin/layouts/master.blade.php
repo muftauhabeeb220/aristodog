@@ -27,6 +27,7 @@
     @yield('content')
 
     <script src="{{ asset('assets/global/js/jquery-3.6.0.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> --}}
     <script src="{{ asset('assets/global/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/vendor/bootstrap-toggle.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/vendor/jquery.slimscroll.min.js') }}"></script>

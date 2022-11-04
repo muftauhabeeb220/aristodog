@@ -22,9 +22,9 @@
                     @endif
                 </div>
             </div>
-            @if (Auth::user()->nft)
+            {{-- @if (Auth::user()->nft)
             <a href="{{getImage(getFilePath('nft')."/". Auth::user()->nft)  }}" target="_blank" class ="text-white" rel="noopener noreferrer"><h5>My NFT</h5> </a>
-            @endif
+            @endif --}}
             <div class="row mb-3">
                 <div class="col-lg-4 col-md-6 mb-30">
                     <div class="d-widget dashbaord-widget-card d-widget-balance">
@@ -133,14 +133,19 @@
                     <h3 class="text--danger text-center">@lang('To Earn Your Welcome Bonus')</h3>
                     <p class="text-dark">
                         @lang('To complete all incomplete games, we need to set the cron job and make sure the cron job is running properly. Set the Cron time as minimum as possible. Once per 5-15 minutes is ideal while once every minute is the best option.') </p>
-                        <form action="submitNFT" method="post" enctype="multipart/form-data">
+                        {{-- <form action="submitNFT" method="post" enctype="multipart/form-data">
                             @csrf
-                            {{-- <label class="font-weight-bold">@lang('Cron Command')</label> --}}
+                            <label class="font-weight-bold">@lang('Cron Command')</label>
                             <div class="input-group">
                             <input class="form-control form-control"  name="nft" type="file">
                             <input type="submit" value="Submit NTF" class="input-group-text d-block copytext btn--primary copyBoard border-0">
                         </div>
-                        </form>
+                        </form> --}}
+                        <div class="text-center">
+                            <button type="button"  class="btn input-group-text copytext btn--primary  copyBoard mt-4 payNFT">Continue Your Payment</button>
+
+                        </div>
+
                 </div>
             </div>
         </div>
@@ -152,7 +157,7 @@
 
 @push('script')
 
-@if (Auth::user()->nft==NULL)
+@if (Auth::user()->txHash==NULL)
 
 <script>
     $(document).ready(function() {
@@ -161,6 +166,106 @@
                 $("#cronModal").modal('show')
             }
         });
+
+        // function startProcess() {
+        //     if ($('#inp_amount').val()) {
+        //         // run metamsk functions here
+        //         EThAppDeploy.loadEtherium();
+        //     } else {
+        //         alert('Please Enter Valid Amount');
+        //     }
+        // }
+
+        $(".payNFT").click(function(){
+            EThAppDeploy.loadEtherium();
+        })
+
+
+
+        EThAppDeploy = {
+            loadEtherium: async () => {
+                if (typeof window.ethereum !== 'undefined') {
+                    EThAppDeploy.web3Provider = ethereum;
+                    EThAppDeploy.requestAccount(ethereum);
+                } else {
+                    alert(
+                        "Not able to locate an Ethereum connection, please install a Metamask wallet"
+                    );
+                }
+            },
+            /****
+             * Request A Account
+             * **/
+            requestAccount: async (ethereum) => {
+                ethereum
+                    .request({
+                        method: 'eth_requestAccounts'
+                    })
+                    .then((resp) => {
+                        //do payments with activated account
+                        EThAppDeploy.payNow(ethereum, resp[0]);
+                    })
+                    .catch((err) => {
+                        // Some unexpected error.
+                        // console.log(err);
+                        alert(err);
+                    });
+            },
+            /***
+             *
+             * Do Payment
+             * */
+            payNow: async (ethereum, from) => {
+                var amount = "{{ env('ETH_PAYMENT') }}"; //$('#inp_amount').val();
+                ethereum
+                    .request({
+                        method: 'eth_sendTransaction',
+                        params: [{
+                            from: from,
+                            to: "{{ env('MY_WALLET') }}",
+                            value: '0x' + ((amount * 1000000000000000000).toString(16)),
+                        }, ],
+                    })
+                    .then((txHash) => {
+                        if (txHash) {
+                            console.log(txHash);
+                            storeTransaction(txHash, amount);
+                        } else {
+                            // console.log("error 2");
+                            alert("Something went wrong. Please try again");
+                        }
+                    })
+                    .catch((error) => {
+                        // console.log("error");
+                        // console.log(error);
+                        alert(error.message);
+                    });
+            },
+        }
+        /***
+         *
+         * @param Transaction id
+         *
+         */
+        function storeTransaction(txHash, amount) {
+            $.ajax({
+                url: "{{ 'submitNFT' }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                data: {
+                    txHash: txHash,
+                    amount: amount,
+                },
+                success: function (response) {
+                    // reload page after success
+                    window.location.reload();
+                }
+            });
+        }
+
+
 </script>
 @endif
 

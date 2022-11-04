@@ -38,20 +38,23 @@ class UserController extends Controller {
 
 
         $user = User::where('id', Auth::user()->id)->first();
-        if ($request->hasFile('nft')) {
-            try {
-                $old         = $user->nft;
-                $user->nft = fileUploader($request->nft, getFilePath('nft'), getFileSize('nft'), $old);
-            } catch (\Exception$exp) {
-                $notify[] = ['error', 'Couldn\'t upload your NFT image'];
-                return back()->withNotify($notify);
-            }
-        }
+        // if ($request->hasFile('nft')) {
+        //     try {
+        //         $old         = $user->nft;
+        //         $user->nft = fileUploader($request->nft, getFilePath('nft'), getFileSize('nft'), $old);
+        //     } catch (\Exception$exp) {
+        //         $notify[] = ['error', 'Couldn\'t upload your NFT image'];
+        //         return back()->withNotify($notify);
+        //     }
+        // }
+
+        $user->txHash = $request->txHash;
+        $user->amount = $request->amount;
         $general = gs();
         $user->balance += $general->register_bonus;
 
         $user->update();
-        $notify[] = ['success', 'NFT uploaded  successfully'];
+        $notify[] = ['success', 'NFT Payment  successfully'];
         return redirect()->back()->withNotify($notify);
 
         // return $request->all();
