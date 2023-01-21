@@ -47,7 +47,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
             Route::controller('UserController')->group(function () {
                 Route::get('dashboard', 'home')->name('home');
-                Route::post('submitNFT', 'submitNFT')->name('submitNFT');
+                // Route::post('submitNFT', 'submitNFT')->name('submitNFT');
 
                 //2FA
                 Route::get('twofactor', 'show2faForm')->name('twofactor');

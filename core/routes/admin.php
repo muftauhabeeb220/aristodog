@@ -127,7 +127,7 @@ Route::middleware('admin')->group(function () {
         Route::post('addwallet', 'addwallet')->name('addwallet');
         Route::post('editwallet/{id}', 'editwallet')->name('editwallet');
         Route::get('delwallet/{id}', 'delwallet')->name('delwallet');
-        Route::get('verify-payment/{id}', 'verifypayment')->name('verifypayment');
+        // Route::get('verify-payment/{id}', 'verifypayment')->name('verifypayment');
         Route::get('pending', 'pending')->name('pending');
         Route::get('rejected', 'rejected')->name('rejected');
         Route::get('approved', 'approved')->name('approved');

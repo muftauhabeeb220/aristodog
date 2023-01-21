@@ -22,10 +22,10 @@
                     @endif
                 </div>
             </div>
-            @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
-            {{-- <a href="{{getImage(getFilePath('nft')."/". Auth::user()->nft)  }}" target="_blank" class ="text-white" rel="noopener noreferrer"><h5>My NFT</h5> </a> --}}
+            {{-- @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
+            <a href="{{getImage(getFilePath('nft')."/". Auth::user()->nft)  }}" target="_blank" class ="text-white" rel="noopener noreferrer"><h5>My NFT</h5> </a>
             <a href="#" class="mybonus btn btn-info btn-sm">Burn NFT</a>
-            @endif
+            @endif --}}
             <div class="row mb-3">
                 <div class="col-lg-4 col-md-6 mb-30">
                     <div class="d-widget dashbaord-widget-card d-widget-balance">
@@ -121,7 +121,7 @@
         </div>
     </section>
 
-    @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
+    {{-- @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
 
     <div class="modal fade" id="cronModal" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -133,9 +133,9 @@
                 <div class="modal-body">
                     <h3 class="text--danger text-center">@lang('Burn Rug Get Free Game Credits')</h3>
                     <h5 class="text--danger text-center">@lang('Send the rug to the burn address provided for the blockchain')</h5>
-                    {{-- @if (Auth::user()->nft_status==0)
+                    @if (Auth::user()->nft_status==0)
                             <h4 class="text-info text-center">Upload a screenshot for approval of your bonus</h4>
-                    @endif --}}
+                    @endif
                     <p class="text-dark">
                         @php
                             $wallets = App\Models\Wallet::get();
@@ -156,7 +156,7 @@
                             @csrf
 
 
-                            {{-- <h4 class="bg-warning p-1">Add:Select Method</h4> --}}
+                            <h4 class="bg-warning p-1">Add:Select Method</h4>
                             @foreach ($wallets as $key=> $item)
 
                             <div class="custom-control custom-radio custom-control-inline">
@@ -173,22 +173,22 @@
                             <input type="submit" value="Paste Your Wallet Address" class="input-group-text d-block copytext btn--primary copyBoard border-0">
                         </div>
                         </form>
-                        {{-- <div class="text-center">
+                        <div class="text-center">
                             <button type="button"  class="btn input-group-text copytext btn--primary  copyBoard mt-4 payNFT">Continue Your Payment</button>
 
-                        </div> --}}
+                        </div>
 
                 </div>
             </div>
         </div>
     </div>
 
-    @endif
+    @endif --}}
 
 @endsection
 
 @push('script')
-
+{{-- 
 @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
 
 <script>
@@ -313,6 +313,6 @@
 
 
 </script>
-@endif
+@endif --}}
 
 @endpush

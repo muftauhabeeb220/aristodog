@@ -167,17 +167,13 @@
 
 
 
-            @if ($user->txHash != NULL)
+            {{-- @if ($user->txHash != NULL)
             <div class="flex-fill">
                 <a class="btn btn--dark btn--shadow w-100 btn-lg welcome" >
                     <i class="las la-user-check"></i>@lang('Welcome Bonus')
                 </a>
 
             </div>
-
-
-
-
             @endif
 
 
@@ -199,7 +195,7 @@
                             @endforeach
 
                             <p>Payer Wallet : {{ $user->nft }}</p>
-                            {{-- <a target="_blank" href="{{getImage(getFilePath('nft')."/". $user->nft)  }}"> <h3>Uploaded File</h3> </a> --}}
+                            <a target="_blank" href="{{getImage(getFilePath('nft')."/". $user->nft)  }}"> <h3>Uploaded File</h3> </a>
                         </div>
                         @if ($user->nft_status==0)
 
@@ -212,7 +208,7 @@
                          @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 

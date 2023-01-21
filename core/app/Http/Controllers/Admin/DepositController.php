@@ -69,14 +69,16 @@ class DepositController extends Controller {
     }
 
 
-    public function verifypayment($id){
-        $user = User::find($id);
-        $general = gs();
-        $user->balance += $general->register_bonus;
-        $user->nft_status = 1;
-        $user->update();
-        return redirect()->back();
-    }
+    // public function verifypayment($id){
+    //     $user = User::find($id);
+    //     $general = gs();
+    //     $user->balance += $general->register_bonus;
+    //     $user->nft_status = 1;
+    //     $user->update();
+    //     return redirect()->back();
+    // }
+    
+
     public function approved() {
         $pageTitle = 'Approved Deposits';
         $deposits  = $this->depositData('approved');

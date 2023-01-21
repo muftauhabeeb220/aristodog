@@ -215,7 +215,7 @@ class UserController extends Controller {
 
         if ($general->rb) {
 
-            $user->balance += 0;//$general->register_bonus;
+            $user->balance += $general->register_bonus;
             $user->save();
 
             $transaction               = new Transaction();
