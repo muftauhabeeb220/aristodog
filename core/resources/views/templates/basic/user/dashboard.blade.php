@@ -123,6 +123,7 @@
 
     {{-- <img src="" style="width:150px; height:150px; object-fit:cover" alt=""> --}}
     {{-- @if (Auth::user()->txHash==NULL || Auth::user()->nft_status==0)
+        
 
     <div class="modal fade" id="cronModal" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
